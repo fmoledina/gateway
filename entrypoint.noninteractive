@@ -1,0 +1,13 @@
+#!/bin/sh
+set -euo pipefail
+
+if [[ ! -f "${STORJ_CONFIG_DIR}/config.yaml" ]]; then
+    if [[ -z "${STORJ_ACCESS}" ]]; then
+        ./gateway setup --non-interactive --satellite-address "${STORJ_SAT_ADDRESS}" --api-key "${STORJ_API_KEY}" --passphrase "${STORJ_PASSPHRASE}"
+    else
+        ./gateway setup --non-interactive --access "${STORJ_ACCESS}"
+    fi
+fi
+
+# exec ./gateway run $RUN_PARAMS "$@"
+exec ./gateway run
