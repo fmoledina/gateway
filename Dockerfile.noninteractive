@@ -6,7 +6,12 @@ ENV GOARCH ${GOARCH}
 EXPOSE 7777
 WORKDIR /app
 VOLUME /root/.local/share/storj/gateway
-COPY gateway_linux_${GOARCH:-amd64} /app/gateway
+#COPY gateway_linux_${GOARCH:-amd64} /app/gateway
+RUN cd /root && \
+    wget https://github.com/storj/gateway/releases/download/v1.1.2/gateway_linux_amd64.zip && \
+    unzip gateway_linux_amd64.zip && \
+    mv gateway /app/gateway && \
+    rm gateway_linux_amd64.zip
 COPY entrypoint.noninteractive /entrypoint
 ENV STORJ_CONFIG_DIR=/root/.local/share/storj/gateway \
     STORJ_SERVER_ADDRESS=0.0.0.0:7777 \
