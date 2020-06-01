@@ -7,11 +7,11 @@ EXPOSE 7777
 WORKDIR /app
 VOLUME /root/.local/share/storj/gateway
 COPY gateway_linux_${GOARCH:-amd64} /app/gateway
-COPY entrypoint /entrypoint
+COPY entrypoint.noninteractive /entrypoint
 ENV STORJ_CONFIG_DIR=/root/.local/share/storj/gateway \
     STORJ_SERVER_ADDRESS=0.0.0.0:7777 \
     STORJ_ACCESS= \
     STORJ_SAT_ADDRESS= \
     STORJ_API_KEY= \
     STORJ_PASSPHRASE=
-ENTRYPOINT ["/entrypoint.noninteractive"]
+ENTRYPOINT ["/entrypoint"]
